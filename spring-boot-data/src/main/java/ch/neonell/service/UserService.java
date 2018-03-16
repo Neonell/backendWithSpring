@@ -2,8 +2,10 @@ package ch.neonell.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import ch.neonell.dao.UserRepository;
@@ -21,7 +23,7 @@ public class UserService {
 
 	public List<UserDTO> getUsers() {
 		List<UserDTO> userList = new ArrayList<>();
-		for(User user : userRepository.findAll()){
+		for (User user : userRepository.findAll()) {
 			UserDTO userDTO = new UserDTO();
 			userDTO.setId(user.getId());
 			userDTO.setName(user.getName());
@@ -32,5 +34,32 @@ public class UserService {
 		return userList;
 	}
 
+	public UserDTO addUser(UserDTO userDTO) {
+		User result = userRepository.save(new User(userDTO.getName(), userDTO.getEmail()));
+		if (result != null) {
+			UserDTO addedUser = new UserDTO();
+			addedUser.setId(result.getId());
+			addedUser.setName(result.getName());
+			addedUser.setEmail(result.getEmail());
+			addedUser.setDate(result.getDate());
+			return userDTO;
+		} else {
+			return null;
+		}
+	}
+
+	public UserDTO getUser(long id) {
+		Optional<User> user = userRepository.findById(id);
+		if (user.isPresent()) {
+			UserDTO userDTO = new UserDTO();
+			userDTO.setId(user.get().getId());
+			userDTO.setName(user.get().getName());
+			userDTO.setEmail(user.get().getEmail());
+			userDTO.setDate(user.get().getDate());
+			return userDTO;
+		} else {
+			return null;
+		}
+	}
 
 }

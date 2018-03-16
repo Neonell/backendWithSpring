@@ -14,7 +14,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findByEmail(String email);
 
     List<User> findByDate(Date date);
-
+    
 	// custom query example and return a stream
     @Query("select u from User u where u.email = :email")
     Stream<User> findByEmailReturnStream(@Param("email") String email);

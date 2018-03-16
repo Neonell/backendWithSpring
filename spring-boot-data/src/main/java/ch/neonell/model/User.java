@@ -1,5 +1,6 @@
 package ch.neonell.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,22 +14,32 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "T_USER")
 public class User {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
-    @SequenceGenerator(sequenceName = "user_seq", allocationSize = 1, name = "USER_SEQ")
-    private Long id;
 
-    private String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
+	@SequenceGenerator(sequenceName = "user_seq", allocationSize = 1, name = "USER_SEQ")
+	private Long id;
+
+	private String name;
 
 	private String email;
 
-    @Column(name = "CREATED_DATE")
-    private Date date;
-    
-    public long getId(){
-    	return id;
-    }
+	@Column(name = "CREATED_DATE")
+	private Date date;
+
+	public User() {
+		super();
+	}
+
+	public User(String name, String email) {
+		this.name = name;
+		this.email = email;
+		this.date = Calendar.getInstance().getTime();
+	}
+
+	public long getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
@@ -46,11 +57,11 @@ public class User {
 		this.email = email;
 	}
 
-	public Date getDate(){
+	public Date getDate() {
 		return date;
 	}
-	
-	public void setDate(Date date){
+
+	public void setDate(Date date) {
 		this.date = date;
 	}
 }
