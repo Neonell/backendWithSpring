@@ -43,8 +43,8 @@ public class UserDTO {
 			this.date = date;
 		}
 		
-		public String toString(){
-			return "name: " + name + ",email: " + email + ", date: " + date.toString();
-		}
+//		public String toString(){
+//			return "name: " + name + ",email: " + email + ", date: " + date.toString();
+//		}
 
 }
