@@ -7,7 +7,7 @@
 5. Select and import all projects
 
 #install Oracle JDBC driver
-1. Download (from Oracle website, create account if needed) and copy the Oracle JDBC driver 10.2.0.4 into your MAVEN local repository (com/Oracle/ojdbc14/10.2.0.4)
+1. Download (from Oracle website, create account if needed) and copy the Oracle JDBC driver 11.1.0.7.0 into your MAVEN local repository (com/Oracle/ojdbc6/11.1.0.7.0) => minimum version supported
 2. rerun mvn dependencies:list
 
 #setup local DB
