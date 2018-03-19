@@ -8,7 +8,7 @@
 
 #install Oracle JDBC driver
 1. Download (from Oracle website, create account if needed) and copy the Oracle JDBC driver 11.1.0.7.0 into your MAVEN local repository (com/Oracle/ojdbc6/11.1.0.7.0) => minimum version supported
-2. rerun mvn dependencies:list
+2. rerun mvn dependency:list
 
 #setup local DB
 @prerequise => Oracle XE + Oracle SQL Developer
@@ -35,6 +35,8 @@ commit;
 #start the backend locally
 1. mvn spring-boot:run
 
+#start the test:
+1. mvn test
 
-
+Notice: the tests run for now in the same database as the devlopment one
 

@@ -37,7 +37,7 @@ public class User {
 		this.date = Calendar.getInstance().getTime();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
