@@ -27,9 +27,7 @@ public class User {
 	@Column(name = "CREATED_DATE")
 	private Date date;
 
-	public User() {
-		super();
-	}
+	private User() {}
 
 	public User(String name, String email) {
 		this.name = name;

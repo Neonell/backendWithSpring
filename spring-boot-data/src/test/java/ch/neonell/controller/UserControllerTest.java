@@ -1,7 +1,11 @@
 package ch.neonell.controller;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Before;
@@ -10,6 +14,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,6 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import ch.neonell.Application;
 import ch.neonell.dao.UserRepository;
+import ch.neonell.dto.UserDTO;
 import ch.neonell.model.User;
 
 import static org.hamcrest.Matchers.*;
@@ -39,6 +47,9 @@ public class UserControllerTest {
 			MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
 	private MockMvc mockMvc;
+	
+	private HttpMessageConverter mappingJackson2HttpMessageConverter;
+
 
 	private List<User> userList = new ArrayList<>();
 
@@ -47,6 +58,23 @@ public class UserControllerTest {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+    void setConverters(HttpMessageConverter<?>[] converters) {
+
+        this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream()
+            .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
+            .findAny()
+            .orElse(null);
+
+        assertNotNull("the JSON message converter must not be null",
+                this.mappingJackson2HttpMessageConverter);
+    }
+	
+	private void assertNotNull(String string, HttpMessageConverter mappingJackson2HttpMessageConverter2) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	/**
 	 * init the tests datas
@@ -80,17 +108,28 @@ public class UserControllerTest {
 				.andExpect(jsonPath("$[1].id", is(this.userList.get(1).getId().intValue())))
 				.andExpect(jsonPath("$[1].name", is("test2"))).andExpect(jsonPath("$[1].email", is("test2@test2.ch")));
 	}
-	//
-	// @Test
-	// public void createBookmark() throws Exception {
-	// String bookmarkJson = json(new Bookmark(
-	// this.account, "http://spring.io", "a bookmark to the best resource for
-	// Spring news and information"));
-	//
-	// this.mockMvc.perform(post("/" + userName + "/bookmarks")
-	// .contentType(contentType)
-	// .content(bookmarkJson))
-	// .andExpect(status().isCreated());
-	// }
+	@Test
+	 public void createUser() throws Exception {
+	 UserDTO user = new UserDTO();
+	 user.setName("test3");
+	 user.setEmail("test3@test3.ch");
+	 Calendar cal = Calendar.getInstance();
+	 user.setDate(cal.getTime());
+	 String userJson = json(user);
+	
+	 this.mockMvc.perform(post("/addUser")
+	 .contentType(contentType)
+	 .content(userJson))
+	 .andExpect(status().isCreated());
+	 }
+	
+	 protected String json(Object o) throws IOException {
+	        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
+	        
+	        this.mappingJackson2HttpMessageConverter.write(
+	                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
+	        
+	        return mockHttpOutputMessage.getBodyAsString();
+	    }
 }
  
