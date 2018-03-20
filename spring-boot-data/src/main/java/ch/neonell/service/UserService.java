@@ -5,13 +5,25 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import ch.neonell.dao.UserRepository;
 import ch.neonell.dto.UserDTO;
 import ch.neonell.model.User;
 
+/**
+ * This class is used for the communication between the Rest controller and the user repository
+ * 
+ * We can directly call the user repository from the rest controller
+ * But if you need to had some more logic to it it's good to use a service inbetween so you don't
+ * have to make your controller too complex.
+ * 
+ * Here I used this service class in order to make the conversion between dto and entity
+ * and also to demonstrate how to define a service (which is actually an application component)
+ * 
+ * @author fnell
+ *
+ */
 @Service("userService")
 public class UserService {
 	@Autowired

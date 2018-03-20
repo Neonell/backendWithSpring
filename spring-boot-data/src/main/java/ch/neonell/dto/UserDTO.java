@@ -2,6 +2,16 @@ package ch.neonell.dto;
 
 import java.util.Date;
 
+/**
+ * Data transfer object for passing user data to the front-end and vis-versa
+ * 
+ * I like to use DTO like this we can control the data we want to transmit or
+ * extend the data with other value needed by the view
+ * 
+ * 
+ * @author fnell
+ *
+ */
 public class UserDTO {
 	 	private Long id;
 

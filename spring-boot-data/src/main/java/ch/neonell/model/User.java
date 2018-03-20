@@ -11,6 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+/**
+ * Entity class for the user table. Spring-data automatically scan this entity
+ * and create or update the table if necessary in the database referenced
+ * 
+ * @author fnell
+ *
+ */
 @Entity
 @Table(name = "T_USER")
 public class User {
@@ -27,7 +34,8 @@ public class User {
 	@Column(name = "CREATED_DATE")
 	private Date date;
 
-	private User() {}
+	private User() {
+	}
 
 	public User(String name, String email) {
 		this.name = name;

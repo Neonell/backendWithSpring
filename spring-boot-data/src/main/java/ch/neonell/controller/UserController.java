@@ -15,35 +15,42 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ch.neonell.dto.UserDTO;
 import ch.neonell.service.UserService;
 
+/**
+ * Rest Controller for the user request
+ * 
+ * 
+ * @author fnell
+ *
+ */
 @RestController
 public class UserController {
 
+	// we use a service layer in order to communicate with the repository, but
+	// we could also have directly wired the repository himself
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping("/getUsers")
-    public List<UserDTO> getUsers() {
+	public List<UserDTO> getUsers() {
 		return userService.getUsers();
-    }
-	
+	}
+
 	@GetMapping("/getUser/{userId}")
-    public UserDTO getUser(@PathVariable long userId) {
+	public UserDTO getUser(@PathVariable long userId) {
 		return userService.getUser(userId);
-    }
-	
+	}
+
 	@PostMapping
-	public ResponseEntity<?> addUser(@RequestBody UserDTO user){
-		
+	public ResponseEntity<?> addUser(@RequestBody UserDTO user) {
+
 		UserDTO userDTO = userService.addUser(user);
-		
-		if(userDTO != null){
-		URI location = ServletUriComponentsBuilder
-				.fromCurrentRequest().path("/getUser/{id}")
-				.buildAndExpand(userDTO.getId()).toUri();
+
+		if (userDTO != null) {
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/getUser/{id}")
+					.buildAndExpand(userDTO.getId()).toUri();
 
 			return ResponseEntity.created(location).build();
-		}
-		else{
+		} else {
 			return ResponseEntity.noContent().build();
 		}
 	}

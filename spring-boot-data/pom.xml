@@ -51,6 +51,14 @@
 			<version>2.6.0</version>
 		</dependency>
 
+		<!-- H2 database for test -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.197</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- TODO: Maybe Liquibase database version management <dependency> <groupId>org.liquibase</groupId> 
 			<artifactId>liquibase-core</artifactId> <version>3.5.5</version> </dependency> -->
 
@@ -61,11 +69,9 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Out of the box tools like monitoring, auditing... to test 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>-->
+		<!-- Out of the box tools like monitoring, auditing... to test <dependency> 
+			<groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-actuator</artifactId> 
+			</dependency> -->
 
 	</dependencies>
 
