@@ -43,5 +43,5 @@ commit;
 1. mvn test
 
 Notice: the tests runs into an H2 database which is created by starting the tests
-The database for the dev/prod mode run in an update modus, it means that only the changes are played when starting the application
+The database for the dev/prod mode run in an update modus, it means that only the changes are played when starting the application.
 
